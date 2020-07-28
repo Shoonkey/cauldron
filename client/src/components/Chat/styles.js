@@ -49,26 +49,5 @@ export const Container = styled.div`
       max-height: 100%;
     }
 
-    .message-form {
-      display: flex;
-      width: 100%;
-      position: absolute;
-      bottom: 0;  
-    }
-
-    #messages-input {
-      padding: 15px;
-      border-style: none;
-      flex-grow: 1;
-      height: 35px;
-
-      color: #e2e2e2;
-      background-color: #0e0e0e;
-    }
-
-    .send-btn {
-      padding-left: 25px;
-      padding-right: 25px;
-    }
   }
 `;

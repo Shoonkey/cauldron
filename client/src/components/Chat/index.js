@@ -5,6 +5,7 @@ import clsx from 'clsx';
 import Icon from '../Icon';
 import Button from '../Button';
 import ChatMessage from '../ChatMessage';
+import ChatInput from '../ChatInput';
 import { Container } from './styles';
 
 const socket = ws('http://localhost:8000');
@@ -21,15 +22,20 @@ socket.on('disconnect', () => {
 function Chat() {
 
   const [open, setOpen] = useState(true);
-  const [message, setMessage] = useState({ type: "text", description: "" });
-
   const [messageList, setMessageList] = useState([]);
 
-  const sendMessage = e => {
-    e.preventDefault();
+  const sendMessage = text => {
     // Send msg to server
 
-    setMessageList([...messageList, message]);
+    setMessageList([
+      ...messageList, 
+      {
+        description: text,
+        metadata: {
+          author: { username: "You" }
+        }
+      }
+    ]);
   };
 
   return (
@@ -62,22 +68,7 @@ function Chat() {
             );
           })}
         </div>
-        <form className="message-form" onSubmit={sendMessage}>
-          <input 
-            type="text" 
-            id="messages-input" 
-            placeholder="Converse no chat!" 
-            value={message.description}
-            onChange={e => setMessage({ 
-              type: "text", 
-              description: e.target.value,
-              metadata: { author: { username: "You" } }
-            })}
-          />
-          <Button className="send-btn" type="submit">
-            <Icon name="send-outline" />
-          </Button>
-        </form>
+        <ChatInput onMessage={sendMessage} />
       </div>
     </Container>
   );
