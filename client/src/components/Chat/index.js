@@ -21,7 +21,7 @@ socket.on('disconnect', () => {
 
 function Chat() {
 
-  const [open, setOpen] = useState(true);
+  const [open, setOpen] = useState(false);
   const [messageList, setMessageList] = useState([]);
 
   const sendMessage = text => {

@@ -7,7 +7,7 @@ import { Container } from './styles';
 
 function MapSelector({ onChange }) {
 
-  const [open, setOpen] = useState(true);
+  const [open, setOpen] = useState(false);
   const [maps, setMaps] = useState(null);
 
   useEffect(() => {
