@@ -1,6 +1,9 @@
 import styled from 'styled-components';
 
 export const Container = styled.div`
+
+  font-family: Roboto;
+
   .chat-container {
     position: fixed;
 
@@ -9,12 +12,22 @@ export const Container = styled.div`
     
     width: 300px;
     height: 80vh;
+
     margin-right: 1em;
+    padding: 2em 0 4em 0;
+
+    transform: translateY(100%);
+    transition: transform .4s;
     
-    background: #ddd;
+    background: #2B2B2B;
     border-radius: 1em 1em 0 0;
 
+    &.open {
+      transform: translateY(0);
+    }
+
     .close-btn { 
+      color: #e2e2e2;
       position: absolute;
       top: 4px;
       right: 0;
@@ -31,10 +44,31 @@ export const Container = styled.div`
       }
     }
 
+    .message-container {
+      overflow-y: auto;
+      max-height: 100%;
+    }
+
     .message-form {
       display: flex;
+      width: 100%;
       position: absolute;
       bottom: 0;  
+    }
+
+    #messages-input {
+      padding: 15px;
+      border-style: none;
+      flex-grow: 1;
+      height: 35px;
+
+      color: #e2e2e2;
+      background-color: #0e0e0e;
+    }
+
+    .send-btn {
+      padding-left: 25px;
+      padding-right: 25px;
     }
   }
 `;

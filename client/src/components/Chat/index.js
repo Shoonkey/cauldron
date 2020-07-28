@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
 import ws from 'socket.io-client';
+import clsx from 'clsx';
 
 import Icon from '../Icon';
 import Button from '../Button';
+import ChatMessage from '../ChatMessage';
 import { Container } from './styles';
 
 const socket = ws('http://localhost:8000');
@@ -11,7 +13,7 @@ socket.on('connect', () => {
   console.log("Connected");
 });
 
-socket.on('event', data => {});
+socket.on('new message', data => {});
 socket.on('disconnect', () => {
   console.log("Disconnected");
 });
@@ -19,30 +21,64 @@ socket.on('disconnect', () => {
 function Chat() {
 
   const [open, setOpen] = useState(true);
-  const [messages, setMessages] = useState([]);
+  const [message, setMessage] = useState({ type: "text", description: "" });
+
+  const [messageList, setMessageList] = useState([]);
+
+  const sendMessage = e => {
+    e.preventDefault();
+    // Send msg to server
+
+    setMessageList([...messageList, message]);
+  };
 
   return (
     <Container>
       {
-        open ? (
-          <div className="chat-container" onClick={() => setOpen(false)}>
-            <Button className="close-btn">
-              <Icon name="close-outline" />
-            </Button>
-            <form className="message-form">
-              <input type="text" placeholder="Converse no chat!" />
-              <Button type="submit">
-                <Icon name="send-outline" />
-              </Button>
-            </form>
-            {messages.map(msg => <p>{msg}</p>)};
-          </div>
-        ) : (
+        !open && (
           <Button fab className="activator" onClick={() => setOpen(true)}>
             <Icon name="chatbubbles-outline" />
           </Button>
         )
       }
+      <div className={clsx("chat-container", open && "open")}>
+        <Button className="close-btn" onClick={() => setOpen(false)}>
+          <Icon name="close-outline" />
+        </Button>
+        <div className="message-container">
+          {messageList.map((msg, idx) => {
+            let prevMsg;
+
+            if (idx > 0)
+              prevMsg = messageList[idx-1];
+
+            return (
+              <ChatMessage 
+                key={"chat-message-"+idx}
+                description={msg.description}
+                metadata={msg.metadata}
+                showAuthor={!prevMsg || prevMsg.metadata.author.username !== msg.metadata.author.username}
+              />
+            );
+          })}
+        </div>
+        <form className="message-form" onSubmit={sendMessage}>
+          <input 
+            type="text" 
+            id="messages-input" 
+            placeholder="Converse no chat!" 
+            value={message.description}
+            onChange={e => setMessage({ 
+              type: "text", 
+              description: e.target.value,
+              metadata: { author: { username: "You" } }
+            })}
+          />
+          <Button className="send-btn" type="submit">
+            <Icon name="send-outline" />
+          </Button>
+        </form>
+      </div>
     </Container>
   );
 }
