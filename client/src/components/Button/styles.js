@@ -24,6 +24,12 @@ const themes = {
     hover: {
       bgColor: "#E73F3F"
     }
+  },
+  none: {
+    bgColor: "inherit",
+    hover: {
+      bgColor: "inherit"
+    }
   }
 };
 
