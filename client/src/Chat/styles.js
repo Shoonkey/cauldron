@@ -6,6 +6,7 @@ export const Container = styled.div`
 
   .chat-container {
     position: fixed;
+    z-index: 1;
 
     bottom: 0;
     right: 0;

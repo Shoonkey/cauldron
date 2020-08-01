@@ -4,6 +4,7 @@ export const Container = styled.nav`
 
   position: relative;
   background: #2D2D2D;
+  z-index: 1;
 
   width: 80%;
   margin: 0 auto;
