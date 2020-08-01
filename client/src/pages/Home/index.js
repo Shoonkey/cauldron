@@ -1,8 +1,8 @@
 import React from 'react';
 
-import Page from '../../components/Page';
-import Chat from '../../components/Chat';
-import MapSelector from '../../components/MapSelector';
+import Page from '../../core/Page';
+import MapSelector from '../../core/MapSelector';
+import Chat from '../../Chat';
 
 function Home() {
   return (

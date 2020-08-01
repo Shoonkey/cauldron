@@ -2,10 +2,10 @@ import React, { useState } from 'react';
 import ws from 'socket.io-client';
 import clsx from 'clsx';
 
-import Icon from '../Icon';
-import Button from '../Button';
-import ChatMessage from '../ChatMessage';
-import ChatInput from '../ChatInput';
+import Icon from '../core/Icon';
+import Button from '../core/Button';
+import Message from './Message';
+import Input from './Input';
 import { Container } from './styles';
 
 const socket = ws('http://localhost:8000');
@@ -59,7 +59,7 @@ function Chat() {
               prevMsg = messageList[idx-1];
 
             return (
-              <ChatMessage 
+              <Message 
                 key={"chat-message-"+idx}
                 description={msg.description}
                 metadata={msg.metadata}
@@ -68,7 +68,7 @@ function Chat() {
             );
           })}
         </div>
-        <ChatInput onMessage={sendMessage} />
+        <Input onMessage={sendMessage} />
       </div>
     </Container>
   );

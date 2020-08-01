@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 
-import Icon from '../Icon';
-import Button from '../Button';
+import Icon from '../../core/Icon';
+import Button from '../../core/Button';
 import { Container } from './styles';
 
 function ChatInput({ onMessage }) {
